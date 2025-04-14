@@ -1,0 +1,5 @@
+# https://github.com/rancher/rancher/blob/73c4db122c2141d56bbea47f7e63025c30cdb6e0/chart/templates/extra-manifests.yaml#L1
+{{ range $key, $value := .Values.manifests }}
+---
+{{ tpl (toYaml $value) $ }}
+{{ end }}

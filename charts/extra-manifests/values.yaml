@@ -1,0 +1,32 @@
+# Map of extra manifests to be deployed, the name will be ignored
+#   and only used to support override between multiple values.yaml file
+manifests:
+  {}
+  # ingress:
+  #   apiVersion: networking.k8s.io/v1
+  #   kind: Ingress
+  #   metadata:
+  #     name: example-ingress
+  #   spec:
+  #     rules:
+  #     - host: example.com
+  #       http:
+  #         paths:
+  #         - path: /
+  #           pathType: Prefix
+  #           backend:
+  #             service:
+  #               name: example-service
+  #               port:
+  #                 number: 80
+
+  # secret:
+  #   apiVersion: v1
+  #   kind: Secret
+  #   metadata:
+  #     name: example-secret
+  #     namespace: default
+  #   type: Opaque
+  #   data:
+  #     username: YWRtaW4=  # base64 encoded "admin"
+  #     password: cGFzc3dvcmQxMjM=  # base64 encoded "password123"
