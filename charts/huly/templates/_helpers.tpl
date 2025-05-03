@@ -86,6 +86,13 @@ securityContext:
 {{- end }}
 {{- end }}
 
+{{- define "huly.common.env" -}}
+{{- range $key, $value := . -}}
+- name: {{ $key | upper }}
+  value: {{ $value }}
+{{- end }}
+{{- end }}
+
 {{- define "huly.env.fullname" -}}
 {{- printf "%s-%s" (include "huly.fullname" .) "env" -}}
 {{- end -}}

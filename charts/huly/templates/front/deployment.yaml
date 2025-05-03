@@ -30,6 +30,9 @@ spec:
           env:
             - name: SERVER_PORT
               value: {{ .Values.front.service.containerPort | quote }}
+            {{- with .Values.front.env -}}
+              {{- include "huly.common.env" . | nindent 12 }}
+            {{- end }}
           {{- with .Values.front.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

@@ -44,6 +44,7 @@ front:
   nodeSelector: {}
   affinity: {}
   tolerations: []
+  env: {}
 
 account:
   replicaCount: 1
@@ -139,7 +140,7 @@ rekoni:
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
-    containerPort: 4600
+    containerPort: 4004
     port: 80
     type: ClusterIP
   resources:
@@ -164,7 +165,7 @@ workspace:
   tolerations: {}
 
 mail:
-  enabled: true
+  enabled: false
   replicaCount: 1
   image:
     repository: hardcoreeng/mail
