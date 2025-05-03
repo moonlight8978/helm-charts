@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   extra-manifests:
   - apiVersion: v2
+    appVersion: 1.0.2
+    created: "2025-05-03T11:18:26.866821536Z"
+    description: A Helm chart for Kubernetes
+    digest: 234a9d857d08e67c24f08004b8dfcf7e7c936b66b11f2d22f453d19cfbe2831d
+    home: https://github.com/moonlight8978/helm-charts
+    maintainers:
+    - email: work@bichls.dev
+      name: moonlight8978
+    name: extra-manifests
+    type: application
+    urls:
+    - https://github.com/moonlight8978/helm-charts/releases/download/extra-manifests-1.0.2/extra-manifests-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     appVersion: 1.0.1
     created: "2025-04-14T09:28:38.979168779Z"
     description: A Helm chart for Kubernetes
@@ -15,4 +29,42 @@ entries:
     urls:
     - https://github.com/moonlight8978/helm-charts/releases/download/extra-manifests-1.0.1/extra-manifests-1.0.1.tgz
     version: 1.0.1
-generated: "2025-04-14T09:28:38.979178427Z"
+  huly:
+  - apiVersion: v2
+    appVersion: v0.6.498
+    created: "2025-05-03T11:18:27.017552712Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.5.5
+    - condition: minio.enabled
+      name: minio
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.0.8
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 22.0.1
+    - alias: extra
+      condition: extra.enabled
+      name: extra-manifests
+      repository: https://moonlight8978.github.io/helm-charts
+      version: 1.0.1
+    description: Helm chart for [huly](https://github.com/hcengineering/platform)
+    digest: 2435b5dfaec082d28fc4c2e56dcf5fe3b9a973091c49a9cadb66098b5c76f99a
+    home: https://huly.io/
+    icon: https://avatars.githubusercontent.com/u/87086734?s=48&v=4
+    keywords:
+    - huly
+    - huly-platform
+    maintainers:
+    - email: work@bichls.dev
+      name: BichLS
+      url: https://github.com/moonlight8978
+    name: huly
+    type: application
+    urls:
+    - https://github.com/moonlight8978/helm-charts/releases/download/huly-1.0.0/huly-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-05-03T11:18:27.017564575Z"
