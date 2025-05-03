@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.workspace.fullname" . }}
+  labels:
+    {{- include "huly.workspace.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.workspace.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.workspace.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.workspace.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.workspace.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: workspace
+          image: {{ include "huly.workspace.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.workspace.image }}
+          envFrom:
+            {{- include "huly.workspace.envFrom" . | nindent 12 }}
+          {{- with .Values.workspace.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.workspace.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.workspace.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.workspace.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

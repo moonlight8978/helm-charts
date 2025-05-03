@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.collaborator.fullname" . }}
+  labels:
+    {{- include "huly.collaborator.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.collaborator.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.collaborator.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.collaborator.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.collaborator.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: collaborator
+          image: {{ include "huly.collaborator.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.collaborator.image }}
+          ports:
+            - containerPort: {{ .Values.collaborator.service.containerPort }}
+          envFrom:
+            {{- include "huly.collaborator.envFrom" . | nindent 12 }}
+          env:
+            - name: COLLABORATOR_PORT
+              value: {{ .Values.collaborator.service.containerPort | quote }}
+          {{- with .Values.collaborator.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.collaborator.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.collaborator.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.collaborator.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -9,7 +9,7 @@
 Create a `values.yaml` file with your Kubernetes manifests:
 
 ```yaml
-objects:
+manifests:
   deployment:
     apiVersion: apps/v1
     kind: Deployment
@@ -63,7 +63,7 @@ helm plugin install https://github.com/jkroepke/helm-secrets
 2. Create a `values.yaml` for non-sensitive manifests:
 
 ```yaml
-objects:
+manifests:
   configmap:
     apiVersion: v1
     kind: ConfigMap
@@ -78,7 +78,7 @@ objects:
 3. Create a `secrets.yaml` file for sensitive manifests:
 
 ```yaml
-objects:
+manifests:
   secret:
     apiVersion: v1
     kind: Secret

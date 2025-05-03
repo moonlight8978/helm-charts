@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.transactor.fullname" . }}
+  labels:
+    {{- include "huly.transactor.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.transactor.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.transactor.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.transactor.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.transactor.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: transactor
+          image: {{ include "huly.transactor.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.transactor.image }}
+          ports:
+            - containerPort: {{ .Values.transactor.service.containerPort }}
+          envFrom:
+            {{- include "huly.transactor.envFrom" . | nindent 12 }}
+          env:
+            - name: SERVER_PORT
+              value: {{ .Values.transactor.service.containerPort | quote }}
+          {{- with .Values.transactor.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.transactor.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.transactor.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.transactor.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,9 @@
+releases:
+  - name: huly
+    namespace: huly
+    chart: ./charts/huly
+    version: 1.0.0
+    values:
+      - ./charts/huly/values.yaml
+      - ./tmp/huly-values.yaml
+

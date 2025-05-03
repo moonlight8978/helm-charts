@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.rekoni.fullname" . }}
+  labels:
+    {{- include "huly.rekoni.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.rekoni.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.rekoni.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.rekoni.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.rekoni.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: rekoni
+          image: {{ include "huly.rekoni.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.rekoni.image }}
+          ports:
+            - containerPort: {{ .Values.rekoni.service.containerPort }}
+          envFrom:
+            {{- include "huly.rekoni.envFrom" . | nindent 12 }}
+          env:
+            - name: REKONI_PORT
+              value: {{ .Values.rekoni.service.containerPort | quote }}
+          {{- with .Values.rekoni.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.rekoni.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.rekoni.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.rekoni.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

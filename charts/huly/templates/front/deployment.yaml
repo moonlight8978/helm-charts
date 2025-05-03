@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.front.fullname" . }}
+  labels:
+    {{- include "huly.front.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.front.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.front.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.front.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.front.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: front
+          image: {{ include "huly.front.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.front.image }}
+          ports:
+            - containerPort: {{ .Values.front.service.containerPort }}
+          envFrom:
+            {{- include "huly.front.envFrom" . | nindent 12 }}
+          env:
+            - name: SERVER_PORT
+              value: {{ .Values.front.service.containerPort | quote }}
+          {{- with .Values.front.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.front.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.front.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.front.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

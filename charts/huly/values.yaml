@@ -1,0 +1,177 @@
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podSecurityContext: {}
+
+securityContext: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+  tls: []
+
+config:
+  env: {}
+
+front:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/front
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 8080
+    port: 80
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+
+account:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/account
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 3000
+    port: 80
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+
+transactor:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/transactor
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 3333
+    port: 80
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
+collaborator:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/collaborator
+    tag: v0.6.496
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 3078
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
+stats:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/stats
+    tag: v0.6.496
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 4900
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "500M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
+fulltext:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/fulltext
+    tag: v0.6.496
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 4700
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
+rekoni:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/rekoni-service
+    tag: v0.6.496
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 4600
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
+workspace:
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/workspace
+    tag: v0.6.496
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
+mongodb:
+  enabled: false
+
+minio:
+  enabled: false
+
+elasticsearch:
+  enabled: false
+
+extra:
+  enabled: false
+  manifests: {}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "huly.rekoni.fullname" . }}
+  labels: {{- include "huly.rekoni.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.rekoni.service.port }}
+      targetPort: {{ .Values.rekoni.service.containerPort }}
+  selector: {{- include "huly.rekoni.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.rekoni.service.type | default "ClusterIP" }}

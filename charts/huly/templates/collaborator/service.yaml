@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "huly.collaborator.fullname" . }}
+  labels: {{- include "huly.collaborator.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.collaborator.service.port }}
+      targetPort: {{ .Values.collaborator.service.containerPort }}
+  selector: {{- include "huly.collaborator.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.collaborator.service.type | default "ClusterIP" }}

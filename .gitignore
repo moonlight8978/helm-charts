@@ -1,0 +1,12 @@
+# Tmp files
+tmp/
+.tmp/
+charts/*/charts/
+
+# Miscs
+**/.DS_Store
+
+# Personal files
+**/*.dec.yaml
+.vscode/
+.cursor/
