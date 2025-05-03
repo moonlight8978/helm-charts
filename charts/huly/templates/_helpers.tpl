@@ -87,7 +87,7 @@ securityContext:
 {{- end }}
 
 {{- define "huly.common.env" -}}
-{{- range $key, $value := . -}}
+{{- range $key, $value := . }}
 - name: {{ $key | upper }}
   value: {{ $value }}
 {{- end }}
