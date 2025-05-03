@@ -1,0 +1,13 @@
+{{- if .Values.mail.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "huly.mail.fullname" . }}
+  labels: {{- include "huly.mail.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.mail.service.port }}
+      targetPort: {{ .Values.mail.service.containerPort }}
+  selector: {{- include "huly.mail.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.mail.service.type | default "ClusterIP" }}
+{{- end }}

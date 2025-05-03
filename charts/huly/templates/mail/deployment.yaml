@@ -1,0 +1,51 @@
+{{- if .Values.mail.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.mail.fullname" . }}
+  labels:
+    {{- include "huly.mail.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mail.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.mail.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.mail.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.mail.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: mail
+          image: {{ include "huly.mail.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.mail.image }}
+          ports:
+            - containerPort: {{ .Values.mail.service.containerPort }}
+          envFrom:
+            {{- include "huly.mail.envFrom" . | nindent 12 }}
+          env:
+            - name: PORT
+              value: {{ .Values.mail.service.containerPort | quote }}
+          {{- with .Values.mail.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.mail.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.mail.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.mail.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

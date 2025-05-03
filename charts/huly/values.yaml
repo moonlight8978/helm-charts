@@ -163,6 +163,25 @@ workspace:
   affinity: {}
   tolerations: {}
 
+mail:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/mail
+    tag: v0.6.496
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 8097
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+
 mongodb:
   enabled: false
 

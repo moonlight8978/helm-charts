@@ -298,6 +298,32 @@ securityContext:
 {{- include "huly.common.image" (dict "image" .Values.workspace.image "root" .) -}}
 {{- end -}}
 
+{{- define "huly.mail.name" -}}
+{{- printf "%s-%s" (include "huly.name" .) "mail" -}}
+{{- end -}}
+
+{{- define "huly.mail.fullname" -}}
+{{- printf "%s-%s" (include "huly.fullname" .) "mail" -}}
+{{- end -}}
+
+{{- define "huly.mail.labels" -}}
+{{ include "huly.labels" . }}
+{{ include "huly.common.component" "mail" }}
+{{- end }}
+
+{{- define "huly.mail.selectorLabels" -}}
+{{ include "huly.selectorLabels" . }}
+{{ include "huly.common.component" "mail" }}
+{{- end }}
+
+{{- define "huly.mail.envFrom" -}}
+{{- include "huly.common.envFrom" . -}}
+{{- end }}
+
+{{- define "huly.mail.image" -}}
+{{- include "huly.common.image" (dict "image" .Values.mail.image "root" .) -}}
+{{- end -}}
+
 # https://github.com/8gears/n8n-helm-chart/blob/565fbf72fbb9da02f1921d395327a8de4712346b/charts/n8n/templates/_helpers.tpl#L77
 {{/* Create environment variables from yaml tree */}}
 {{- define "toEnvVars" -}}

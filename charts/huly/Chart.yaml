@@ -1,6 +1,6 @@
 apiVersion: v2
 name: huly
-version: 1.0.0
+version: 1.0.1
 appVersion: "v0.6.498"
 type: application
 description: Helm chart for [huly](https://github.com/hcengineering/platform)
