@@ -43,5 +43,54 @@ spec:
               name: {{ include "huly.front.fullname" $ }}
               port:
                 number: {{ $.Values.front.service.port }}
+        - path: /_accounts
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.account.fullname" $ }}
+              port:
+                number: {{ $.Values.account.service.port }}
+        - path: /_collaborator
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.collaborator.fullname" $ }}
+              port:
+                number: {{ $.Values.collaborator.service.port }}
+        - path: /_transactor
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.transactor.fullname" $ }}
+              port:
+                number: {{ $.Values.transactor.service.port }}
+        - path: /eyJ
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.transactor.fullname" $ }}
+              port:
+                number: {{ $.Values.transactor.service.port }}
+        - path: /_rekoni
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.rekoni.fullname" $ }}
+              port:
+                number: {{ $.Values.rekoni.service.port }}
+        - path: /_stats
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.stats.fullname" $ }}
+              port:
+                number: {{ $.Values.stats.service.port }}
+        # - path: /_love
+        #   pathType: Prefix
+        #   backend:
+        #     service:
+        #       name: {{ include "huly.love.fullname" $ }}
+        #       port:
+        #         number: {{ $.Values.love.service.port }}
     {{- end }}
 {{- end }}
