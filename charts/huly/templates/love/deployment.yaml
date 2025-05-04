@@ -14,6 +14,8 @@ spec:
     metadata:
       labels:
         {{- include "huly.love.selectorLabels" . | nindent 8 }}
+      annotations:
+        {{- include "huly.common.podAnnotations" $ | nindent 8 }}
     spec:
       {{ include "huly.common.podSecurity" . | nindent 6 }}
       {{- with .Values.love.imagePullSecrets }}
