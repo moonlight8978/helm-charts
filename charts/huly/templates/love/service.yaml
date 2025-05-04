@@ -1,0 +1,13 @@
+{{- if .Values.love.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "huly.love.fullname" . }}
+  labels: {{- include "huly.love.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.love.service.port }}
+      targetPort: {{ .Values.love.service.containerPort }}
+  selector: {{- include "huly.love.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.love.service.type | default "ClusterIP" }}
+{{- end }}

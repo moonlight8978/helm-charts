@@ -1,0 +1,51 @@
+{{- if .Values.love.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.love.fullname" . }}
+  labels:
+    {{- include "huly.love.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.love.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.love.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.love.selectorLabels" . | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.love.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: love
+          image: {{ include "huly.love.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.love.image }}
+          ports:
+            - containerPort: {{ .Values.love.service.containerPort }}
+          envFrom:
+            {{- include "huly.love.envFrom" . | nindent 12 }}
+          env:
+            - name: PORT
+              value: {{ .Values.love.service.containerPort | quote }}
+          {{- with .Values.love.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.love.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.love.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.love.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

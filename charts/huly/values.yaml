@@ -183,6 +183,25 @@ mail:
   affinity: {}
   tolerations: {}
 
+love:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/love
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 8096
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: {}
+  env: {}
+
 mongodb:
   enabled: false
 

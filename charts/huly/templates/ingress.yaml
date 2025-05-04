@@ -85,12 +85,5 @@ spec:
               name: {{ include "huly.stats.fullname" $ }}
               port:
                 number: {{ $.Values.stats.service.port }}
-        # - path: /_love
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: {{ include "huly.love.fullname" $ }}
-        #       port:
-        #         number: {{ $.Values.love.service.port }}
     {{- end }}
 {{- end }}

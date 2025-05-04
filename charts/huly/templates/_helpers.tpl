@@ -93,6 +93,10 @@ securityContext:
 {{- end }}
 {{- end }}
 
+{{- define "huly.common.podAnnotations" -}}
+checksum/secret-env: {{ include (print .Template.BasePath "/secret-env.yaml") . | sha256sum }}
+{{- end -}}
+
 {{- define "huly.env.fullname" -}}
 {{- printf "%s-%s" (include "huly.fullname" .) "env" -}}
 {{- end -}}
@@ -329,6 +333,32 @@ securityContext:
 
 {{- define "huly.mail.image" -}}
 {{- include "huly.common.image" (dict "image" .Values.mail.image "root" .) -}}
+{{- end -}}
+
+{{- define "huly.love.name" -}}
+{{- printf "%s-%s" (include "huly.name" .) "love" -}}
+{{- end -}}
+
+{{- define "huly.love.fullname" -}}
+{{- printf "%s-%s" (include "huly.fullname" .) "love" -}}
+{{- end -}}
+
+{{- define "huly.love.labels" -}}
+{{ include "huly.labels" . }}
+{{ include "huly.common.component" "love" }}
+{{- end }}
+
+{{- define "huly.love.selectorLabels" -}}
+{{ include "huly.selectorLabels" . }}
+{{ include "huly.common.component" "love" }}
+{{- end }}
+
+{{- define "huly.love.envFrom" -}}
+{{- include "huly.common.envFrom" . -}}
+{{- end }}
+
+{{- define "huly.love.image" -}}
+{{- include "huly.common.image" (dict "image" .Values.love.image "root" .) -}}
 {{- end -}}
 
 # https://github.com/8gears/n8n-helm-chart/blob/565fbf72fbb9da02f1921d395327a8de4712346b/charts/n8n/templates/_helpers.tpl#L77
