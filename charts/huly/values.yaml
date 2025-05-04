@@ -86,7 +86,6 @@ collaborator:
   replicaCount: 1
   image:
     repository: hardcoreeng/collaborator
-    tag: v0.6.496
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
@@ -105,7 +104,6 @@ stats:
   replicaCount: 1
   image:
     repository: hardcoreeng/stats
-    tag: v0.6.496
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
@@ -124,7 +122,6 @@ fulltext:
   replicaCount: 1
   image:
     repository: hardcoreeng/fulltext
-    tag: v0.6.496
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
@@ -143,7 +140,6 @@ rekoni:
   replicaCount: 1
   image:
     repository: hardcoreeng/rekoni-service
-    tag: v0.6.496
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
@@ -162,7 +158,6 @@ workspace:
   replicaCount: 1
   image:
     repository: hardcoreeng/workspace
-    tag: v0.6.496
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   resources:
@@ -178,7 +173,6 @@ mail:
   replicaCount: 1
   image:
     repository: hardcoreeng/mail
-    tag: v0.6.496
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
