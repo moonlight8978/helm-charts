@@ -32,6 +32,9 @@ spec:
           env:
             - name: REKONI_PORT
               value: {{ .Values.rekoni.service.containerPort | quote }}
+            {{- with .Values.rekoni.env -}}
+              {{- include "huly.common.env" . | nindent 12 }}
+            {{- end }}
           {{- with .Values.rekoni.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

@@ -23,7 +23,8 @@ ingress:
   className: ""
   annotations: {}
   hostname: chart-example.local
-  extra_hosts: []
+  extra_hosts:
+    []
     # - name: alternate.chart-example.local
   tls: []
 
@@ -62,6 +63,7 @@ account:
   nodeSelector: {}
   affinity: {}
   tolerations: []
+  env: {}
 
 transactor:
   replicaCount: 1
@@ -77,7 +79,8 @@ transactor:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 collaborator:
   replicaCount: 1
@@ -95,7 +98,8 @@ collaborator:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 stats:
   replicaCount: 1
@@ -113,7 +117,8 @@ stats:
       memory: "500M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 fulltext:
   replicaCount: 1
@@ -131,7 +136,8 @@ fulltext:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 rekoni:
   replicaCount: 1
@@ -149,7 +155,8 @@ rekoni:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 workspace:
   replicaCount: 1
@@ -163,7 +170,8 @@ workspace:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 mail:
   enabled: false
@@ -182,7 +190,8 @@ mail:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
+  env: {}
 
 love:
   enabled: false
@@ -200,7 +209,7 @@ love:
       memory: "512M"
   nodeSelector: {}
   affinity: {}
-  tolerations: {}
+  tolerations: []
   env: {}
 
 mongodb:

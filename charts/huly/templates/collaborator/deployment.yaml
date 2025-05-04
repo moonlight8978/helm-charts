@@ -32,6 +32,9 @@ spec:
           env:
             - name: COLLABORATOR_PORT
               value: {{ .Values.collaborator.service.containerPort | quote }}
+            {{- with .Values.collaborator.env -}}
+              {{- include "huly.common.env" . | nindent 12 }}
+            {{- end }}
           {{- with .Values.collaborator.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

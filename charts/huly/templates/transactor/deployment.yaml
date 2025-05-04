@@ -32,6 +32,9 @@ spec:
           env:
             - name: SERVER_PORT
               value: {{ .Values.transactor.service.containerPort | quote }}
+            {{- with .Values.transactor.env -}}
+              {{- include "huly.common.env" . | nindent 12 }}
+            {{- end }}
           {{- with .Values.transactor.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

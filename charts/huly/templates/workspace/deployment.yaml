@@ -27,6 +27,10 @@ spec:
           imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.workspace.image }}
           envFrom:
             {{- include "huly.workspace.envFrom" . | nindent 12 }}
+          {{- with .Values.workspace.env -}}
+          env:
+            {{- include "huly.common.env" . | nindent 12 }}
+          {{- end }}
           {{- with .Values.workspace.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

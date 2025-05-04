@@ -32,6 +32,9 @@ spec:
           env:
             - name: FULLTEXT_PORT
               value: {{ .Values.fulltext.service.containerPort | quote }}
+            {{- with .Values.fulltext.env -}}
+              {{- include "huly.common.env" . | nindent 12 }}
+            {{- end }}
           {{- with .Values.fulltext.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
