@@ -7,6 +7,11 @@
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
   {{- end }}
 {{- end }}
+{{/* Create a list containing the main hostname and all extra hostnames */}}
+{{- $hosts := list .Values.ingress.hostname -}}
+{{- range .Values.ingress.extra_hosts -}}
+  {{- $hosts = append $hosts .name -}}
+{{- end -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -32,8 +37,8 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    {{- range $host := $hosts }}
+    - host: {{ $host | quote }}
       http:
         paths:
         - path: /
