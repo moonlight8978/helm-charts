@@ -99,5 +99,14 @@ spec:
               port:
                 number: {{ $.Values.love.service.port }}
         {{- end }}
+        {{- if $.Values.github.enabled }}
+        - path: /_github
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "huly.github.fullname" $ }}
+              port:
+                number: {{ $.Values.github.service.port }}
+        {{- end }}
     {{- end }}
 {{- end }}
