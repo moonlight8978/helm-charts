@@ -381,4 +381,30 @@ checksum/secret-env: {{ include (print .Template.BasePath "/secret-env.yaml") . 
   {{- end -}}
 {{- end }}
 
+{{- define "huly.github.name" -}}
+{{- printf "%s-%s" (include "huly.name" .) "github" -}}
+{{- end -}}
+
+{{- define "huly.github.fullname" -}}
+{{- printf "%s-%s" (include "huly.fullname" .) "github" -}}
+{{- end -}}
+
+{{- define "huly.github.labels" -}}
+{{ include "huly.labels" . }}
+{{ include "huly.common.component" "github" }}
+{{- end }}
+
+{{- define "huly.github.selectorLabels" -}}
+{{ include "huly.selectorLabels" . }}
+{{ include "huly.common.component" "github" }}
+{{- end }}
+
+{{- define "huly.github.envFrom" -}}
+{{- include "huly.common.envFrom" . -}}
+{{- end }}
+
+{{- define "huly.github.image" -}}
+{{- include "huly.common.image" (dict "image" .Values.github.image "root" .) -}}
+{{- end -}}
+
 

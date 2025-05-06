@@ -1,0 +1,56 @@
+{{- if .Values.github.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "huly.github.fullname" . }}
+  labels:
+    {{- include "huly.github.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.github.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "huly.github.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "huly.github.selectorLabels" . | nindent 8 }}
+      annotations:
+        {{- include "huly.common.podAnnotations" $ | nindent 8 }}
+    spec:
+      {{ include "huly.common.podSecurity" . | nindent 6 }}
+      {{- with .Values.github.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: github
+          image: {{ include "huly.github.image" . }}
+          imagePullPolicy: {{ include "huly.common.imagePullPolicy" .Values.github.image }}
+          ports:
+            - containerPort: {{ .Values.github.service.containerPort }}
+          envFrom:
+            {{- include "huly.github.envFrom" . | nindent 12 }}
+          env:
+            - name: PORT
+              value: {{ .Values.github.service.containerPort | quote }}
+            {{- with .Values.github.env -}}
+              {{- include "huly.common.env" . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.github.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      {{- with .Values.github.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.github.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.github.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

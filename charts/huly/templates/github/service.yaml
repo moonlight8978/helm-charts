@@ -1,0 +1,13 @@
+{{- if .Values.github.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "huly.github.fullname" . }}
+  labels: {{- include "huly.github.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.github.service.port }}
+      targetPort: {{ .Values.github.service.containerPort }}
+  selector: {{- include "huly.github.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.github.service.type | default "ClusterIP" }}
+{{- end }}

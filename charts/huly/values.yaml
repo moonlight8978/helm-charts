@@ -206,6 +206,25 @@ love:
   tolerations: []
   env: {}
 
+github:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: hardcoreeng/github
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
+  service:
+    containerPort: 3500
+    port: 80
+    type: ClusterIP
+  resources:
+    limits:
+      memory: "512M"
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  env: {}
+
 mongodb:
   enabled: false
 
