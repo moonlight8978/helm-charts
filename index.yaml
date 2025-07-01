@@ -31,6 +31,43 @@ entries:
     version: 1.0.1
   huly:
   - apiVersion: v2
+    appVersion: v0.6.502
+    created: "2025-07-01T02:41:01.981508454Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.5.27
+    - condition: minio.enabled
+      name: minio
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 17.0.9
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 22.0.10
+    - alias: extra
+      condition: extra.enabled
+      name: extra-manifests
+      repository: https://moonlight8978.github.io/helm-charts
+      version: 1.0.2
+    description: Helm chart for [huly](https://github.com/hcengineering/platform)
+    digest: c715d947006f5709c71f5d82f16e2f5459dbebec5fa26ec33170327ddc7bf8a7
+    home: https://huly.io/
+    icon: https://avatars.githubusercontent.com/u/87086734?s=48&v=4
+    keywords:
+    - huly
+    - huly-platform
+    maintainers:
+    - email: work@bichls.dev
+      name: BichLS
+      url: https://github.com/moonlight8978
+    name: huly
+    type: application
+    urls:
+    - https://github.com/moonlight8978/helm-charts/releases/download/huly-1.2.3/huly-1.2.3.tgz
+    version: 1.2.3
+  - apiVersion: v2
     appVersion: v0.6.498
     created: "2025-05-06T03:23:06.371132434Z"
     dependencies:
@@ -511,4 +548,4 @@ entries:
     urls:
     - https://github.com/moonlight8978/helm-charts/releases/download/huly-1.0.0/huly-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-06T03:23:06.371218355Z"
+generated: "2025-07-01T02:41:01.981591149Z"
