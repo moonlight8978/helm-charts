@@ -34,6 +34,6 @@ dependencies:
 
   - name: extra-manifests
     alias: extra
-    version: 1.0.1
+    version: 1.0.2
     repository: https://moonlight8978.github.io/helm-charts
     condition: extra.enabled
