@@ -28,7 +28,7 @@ dependencies:
     condition: minio.enabled
 
   - name: elasticsearch
-    version: 22.0.13
+    version: 22.0.14
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: elasticsearch.enabled
 
