@@ -23,7 +23,7 @@ dependencies:
     condition: mongodb.enabled
 
   - name: minio
-    version: 17.0.15
+    version: 17.0.16
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: minio.enabled
 
