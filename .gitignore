@@ -2,6 +2,7 @@
 tmp/
 .tmp/
 charts/*/charts/
+**/Chart.lock
 
 # Miscs
 **/.DS_Store
@@ -10,3 +11,4 @@ charts/*/charts/
 **/*.dec.yaml
 .vscode/
 .cursor/
+**/secrets.yaml

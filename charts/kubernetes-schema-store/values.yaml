@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/library/common/values.schema.json
+
+image:
+  repository: &repository ghcr.io/moonlight8978/kubernetes-schema-store
+  tag: &tag 0.1.0
+
+rclone:
+  secret:
+    create: true
+    name: &rcloneConfSecretName kss-rclone-config
+    key: &rcloneConfSecretKey rclone.conf
+  destination: "s3:/bucket"
+  s3:
+    provider: AWS
+    endpoint: ""
+    accessKeyId: ""
+    secretAccessKey: ""
+    region: "us-east-1"
+
+controllers:
+  main:
+    serviceAccount:
+      identifier: main
+    # TODO: Change to controller-based server
+    type: cronjob
+    cronjob:
+      schedule: "0 0 * * *"
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 30
+    containers:
+      main:
+        image:
+          repository: *repository
+          tag: *tag
+          pullPolicy: IfNotPresent
+        command:
+          - /bin/sh
+          - -c
+        args:
+          - |
+            kss sync \
+              --auth-method in-cluster \
+              --destination $DESTINATION
+        envFrom:
+          - secret: env
+
+persistence:
+  config:
+    enabled: true
+    type: secret
+    name: *rcloneConfSecretName
+    advancedMounts:
+      main:
+        main:
+          - path: /root/.config/rclone/rclone.conf
+            readOnly: true
+            subPath: *rcloneConfSecretKey
+
+secrets:
+  env:
+    enabled: true
+    stringData:
+      DESTINATION: '{{required "Destination is required" .Values.rclone.destination}}'
+
+serviceAccount:
+  main:
+    enabled: true
