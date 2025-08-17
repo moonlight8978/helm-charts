@@ -548,4 +548,19 @@ entries:
     urls:
     - https://github.com/moonlight8978/helm-charts/releases/download/huly-1.0.0/huly-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-01T02:41:01.981591149Z"
+  kubernetes-schema-store:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-08-17T16:39:37.906217454Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts
+      version: 4.2.0
+    description: A Helm chart for Kubernetes Schema Store
+    digest: 466067efbfc7f63b7da66c5d5d2e1438334e8497f0a3eab56b9ddf3a6aa6bfce
+    name: kubernetes-schema-store
+    type: application
+    urls:
+    - https://github.com/moonlight8978/helm-charts/releases/download/kubernetes-schema-store-1.0.1/kubernetes-schema-store-1.0.1.tgz
+    version: 1.0.1
+generated: "2025-08-17T16:39:37.906269892Z"
