@@ -2,7 +2,7 @@ apiVersion: v2
 name: kubernetes-schema-store
 description: A Helm chart for Kubernetes Schema Store
 type: application
-version: 1.0.0
+version: 1.0.1
 # renovate: datasource=github-releases depName=moonlight8978/kubernetes-schema-store
 appVersion: 0.1.0
 dependencies:
