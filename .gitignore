@@ -11,3 +11,4 @@ charts/*/charts/
 **/*.dec.yaml
 .vscode/
 .cursor/
+**/secrets.yaml

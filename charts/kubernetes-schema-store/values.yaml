@@ -6,9 +6,16 @@ image:
 
 rclone:
   secret:
+    create: true
     name: &rcloneConfSecretName kss-rclone-config
     key: &rcloneConfSecretKey rclone.conf
-  destination: "test:/test"
+  destination: "s3:/bucket"
+  s3:
+    provider: AWS
+    endpoint: ""
+    accessKeyId: ""
+    secretAccessKey: ""
+    region: "us-east-1"
 
 controllers:
   main:
@@ -27,13 +34,13 @@ controllers:
           tag: *tag
           pullPolicy: IfNotPresent
         command:
-          - kss
+          - /bin/sh
+          - -c
         args:
-          - sync
-          - --auth-method
-          - in-cluster
-          - --destination
-          - $DESTINATION
+          - |
+            kss sync \
+              --auth-method in-cluster \
+              --destination $DESTINATION
         envFrom:
           - secret: env
 
@@ -58,25 +65,3 @@ secrets:
 serviceAccount:
   main:
     enabled: true
-
-rbac:
-  roles:
-    main:
-      type: ClusterRole
-      rules:
-        - apiGroups:
-            - "*"
-          resources:
-            - "*"
-          verbs:
-            - "list"
-            - "watch"
-            - "get"
-  bindings:
-    main:
-      enabled: true
-      type: ClusterRoleBinding
-      roleRef:
-        identifier: main
-      subjects:
-        - identifier: main
