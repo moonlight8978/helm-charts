@@ -18,7 +18,7 @@ maintainers:
 
 dependencies:
   - name: mongodb
-    version: 18.1.7
+    version: 18.1.9
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: mongodb.enabled
 
