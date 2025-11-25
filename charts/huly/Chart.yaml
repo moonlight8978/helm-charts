@@ -2,7 +2,7 @@ apiVersion: v2
 name: huly
 version: 1.2.3
 # renovate: datasource=github-releases depName=hcengineering/platform
-appVersion: v0.7.307
+appVersion: v0.7.310
 type: application
 description: Helm chart for [huly](https://github.com/hcengineering/platform)
 home: https://huly.io/
